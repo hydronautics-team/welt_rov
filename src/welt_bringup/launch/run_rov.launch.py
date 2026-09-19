@@ -11,6 +11,7 @@ def generate_launch_description():
     welt_config_pkg = get_package_share_directory('welt_bringup')
     pressure_pkg = get_package_share_directory('pressure_sensor')
     vectornav_pkg = get_package_share_directory('vectornav')
+    lights_pkg = get_package_share_directory('lights_device')
 
     pressure_link_launch = os.path.join(comm_pkg, 'launch', 'pressure_link.launch.py')
     thruster_link_launch = os.path.join(comm_pkg, 'launch', 'thruster_link.launch.py')
@@ -22,6 +23,7 @@ def generate_launch_description():
     core_control_launch = os.path.join(control_pkg, 'launch', 'stingray_core_control.launch.py')
     pressure_sensor_launch = os.path.join(pressure_pkg, 'launch', 'pressure_sensor.launch.py')
     vectornav_launch = os.path.join(vectornav_pkg, 'launch', 'vectornav.launch.py')
+    lights_launch = os.path.join(lights_pkg, 'launch', 'lights_device.launch.py')
 
     thruster_link = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(thruster_link_launch),
@@ -56,10 +58,15 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(vectornav_launch)
     )
 
+    lights = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(lights_launch)
+    )
+
     return LaunchDescription([
         thruster_link,
         core_control,
         pressure_link,
         pressure_sensor,
         vectornav,
+        lights
     ])

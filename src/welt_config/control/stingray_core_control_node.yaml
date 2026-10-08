@@ -86,9 +86,10 @@ stingray_core_control_node:
     - ap_K
     - ap_T
     flag_setup_feedback_speed: false
-    use_dvl_velocity: false
+    use_dvl_velocity: true
     use_distance_measurement: false
-    dvl_velocity_alpha: 0.2
+    dvl_velocity_alpha: 0.0
     dvl_timeout_sec: 0.5
+    command_timeout_sec: 0.5
     debug_publish: true
     use_sim_time: false

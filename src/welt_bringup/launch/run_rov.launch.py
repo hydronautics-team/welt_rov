@@ -1,6 +1,7 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 import os
 
@@ -12,6 +13,9 @@ def generate_launch_description():
     pressure_pkg = get_package_share_directory('pressure_sensor')
     vectornav_pkg = get_package_share_directory('vectornav')
     lights_pkg = get_package_share_directory('lights_device')
+    dvl_pkg = get_package_share_directory('dvl_a50')
+    description_pkg = get_package_share_directory('stingray_core_description')
+    localization_pkg = get_package_share_directory('stingray_core_localization')
 
     pressure_link_launch = os.path.join(comm_pkg, 'launch', 'pressure_link.launch.py')
     thruster_link_launch = os.path.join(comm_pkg, 'launch', 'thruster_link.launch.py')
@@ -24,6 +28,9 @@ def generate_launch_description():
     pressure_sensor_launch = os.path.join(pressure_pkg, 'launch', 'pressure_sensor.launch.py')
     vectornav_launch = os.path.join(vectornav_pkg, 'launch', 'vectornav.launch.py')
     lights_launch = os.path.join(lights_pkg, 'launch', 'lights_device.launch.py')
+    dvl_launch = os.path.join(dvl_pkg, 'launch', 'dvl_a50.launch.py')
+    description_launch = os.path.join(description_pkg, 'launch', 'description.launch.py')
+    localization_launch = os.path.join(localization_pkg, 'launch', 'localization.launch.py')
 
     thruster_link = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(thruster_link_launch),
@@ -62,11 +69,28 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(lights_launch)
     )
 
+    dvl = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(dvl_launch),
+        launch_arguments={'ip_address': LaunchConfiguration('dvl_ip')}.items()
+    )
+
+    description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(description_launch)
+    )
+
+    localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(localization_launch)
+    )
+
     return LaunchDescription([
+        DeclareLaunchArgument('dvl_ip', default_value='192.168.0.95'),
         thruster_link,
         core_control,
         pressure_link,
         pressure_sensor,
         vectornav,
-        lights
+        lights,
+        dvl,
+        description,
+        localization
     ])

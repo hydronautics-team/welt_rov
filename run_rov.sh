@@ -24,6 +24,8 @@ colcon build \
     vectornav \
     stingray_interface_bridge \
     pressure_sensor \
+    stingray_core_description \
+    stingray_core_localization \
     welt_bringup
 
 echo "----------------------------------------"
@@ -36,4 +38,4 @@ echo "----------------------------------------"
 echo "🚀 Launching WELT ROV..."
 echo "----------------------------------------"
 
-ros2 launch welt_bringup run_rov.launch.py
+ros2 launch welt_bringup run_rov.launch.py "$@"

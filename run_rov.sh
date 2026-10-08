@@ -7,6 +7,7 @@ echo "🔧 Building Stingray core packages for WELT..."
 echo "----------------------------------------"
 
 cd "$(dirname "$0")"
+export STINGRAY_CONFIG_DIR="${STINGRAY_CONFIG_DIR:-$(pwd)/src/welt_config/control}"
 
 colcon build \
     --base-paths src/stingray_core/src src/welt_bringup \

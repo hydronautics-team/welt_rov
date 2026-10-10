@@ -94,4 +94,5 @@ stingray_core_control_node:
     dvl_position_timeout_sec: 0.5
     command_timeout_sec: 0.5
     debug_publish: true
+    use_separate_horizontal_setpoints: true
     use_sim_time: false

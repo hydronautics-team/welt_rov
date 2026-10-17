@@ -83,7 +83,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        DeclareLaunchArgument('dvl_ip', default_value='192.168.0.95'),
+        DeclareLaunchArgument('dvl_ip', default_value='10.42.0.95'),
         thruster_link,
         core_control,
         pressure_link,

@@ -9,6 +9,7 @@ stingray_core_control_node:
     # Assisted mode adds them to enabled controllers; loop_flags bit 6 selects
     # whether the hold point follows the vehicle while an impact is applied.
     topic_control_data: /control/data
+    topic_manual_impact: /control/manual_impact
     topic_control_mode: /control/mode
     topic_loop_flags: /control/loop_flags
     topic_imu: /core/sensors/imu

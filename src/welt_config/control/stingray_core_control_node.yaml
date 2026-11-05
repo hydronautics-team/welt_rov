@@ -1,7 +1,15 @@
 stingray_core_control_node:
   ros__parameters:
     rate_hz: 70.0
+    # /control/data contract in automatic mode:
+    # linear.x/y are body-frame offsets [m], linear.z is depth offset [m]
+    # (positive down), all relative to the current pose;
+    # angular.xyz are absolute roll/pitch/yaw setpoints [deg].
+    # In manual and assisted modes /control/data contains direct axis impacts.
+    # Assisted mode adds them to enabled controllers; loop_flags bit 6 selects
+    # whether the hold point follows the vehicle while an impact is applied.
     topic_control_data: /control/data
+    topic_control_mode: /control/mode
     topic_loop_flags: /control/loop_flags
     topic_imu: /core/sensors/imu
     topic_odometry: /core/state/odometry
@@ -87,5 +95,6 @@ stingray_core_control_node:
     dvl_timeout_sec: 0.5
     dvl_position_timeout_sec: 0.5
     command_timeout_sec: 0.5
+    manual_impact_deadband: 0.001
     debug_publish: true
     use_sim_time: false

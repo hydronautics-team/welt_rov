@@ -92,10 +92,24 @@ stingray_core_control_node:
     - out_sat
     - ap_K
     - ap_T
+    # Independent loop type. false = position/angle, true = velocity/rate.
+    # In automatic mode the matching /control/data field has the selected
+    # semantics: m or deg for position mode, m/s or deg/s for speed mode.
+    feedback_speed:
+      surge: false
+      sway: false
+      heave: false
+      roll: false
+      pitch: false
+      yaw: false
+    # Deprecated compatibility switch; use feedback_speed.<axis> above.
     flag_setup_feedback_speed: false
     dvl_timeout_sec: 0.5
     dvl_position_timeout_sec: 0.5
     command_timeout_sec: 0.5
     manual_impact_deadband: 0.001
+    # Per-axis tuning topics are published under
+    # /stingray_core_control_node/debug/<axis>/{setpoint,measurement,
+    # speed_mode,err_position,output_pi,feedback_speed,measurement_rate,out}.
     debug_publish: true
     use_sim_time: false
